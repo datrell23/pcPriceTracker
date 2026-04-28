@@ -1,0 +1,15 @@
+# Virtual Environment
+venv/
+*.pyc
+__pycache__/
+
+# Data files (you can decide later if you want to track these)
+*.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
