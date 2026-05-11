@@ -39,7 +39,6 @@ def extract_title(soup):
         print("x Could not find title")
         return None
     
-    
 def extract_price(soup):
     """Extracts product price from webpage"""
     price_element = soup.find('div', class_='price-current')
@@ -56,6 +55,17 @@ def extract_price(soup):
     else:
         print("x Could not find price element.")
         return None
+     
+def extract_stock_status(soup):
+    """Check if product is in stock by checking Add to cart"""
+    add_to_cart_button = soup.find('button', class_='btn-primary')
+    
+    if add_to_cart_button and 'Add to cart' in add_to_cart_button.get_text():
+        print("Product is in Stock")
+        return "In Stock"
+    else:
+        print("Product is out of stock")
+        return "Out of stock"
     
 def load_price_history(filename):
     """Checks for and loads existing price history from JSON file"""
@@ -83,13 +93,15 @@ def main():
     
     title = extract_title(soup)
     price = extract_price(soup)
-    current_time = datetime.now
+    stock_status = extract_stock_status(soup)
+    current_time = datetime.now()
     
     print(f"n\Checked at: {current_time}")
     
     price_data ={
         "product": title,
         "price": price,
+        "stock_status": stock_status,
         "timestamp": str(current_time),
         "url": PRODUCT_URL
     }
