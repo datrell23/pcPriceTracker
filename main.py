@@ -82,7 +82,7 @@ def save_price_history(filename, data):
     """Save price history to JSON file"""
     with open(filename,'w')as f:
         json.dump(data,f ,indent=4)
-    print(f"n\ Price saved to {filename}")
+    print(f"\n Price saved to {filename}")
     print(f" Total entries: {len(data)}")
     
 # Main Execution
@@ -96,7 +96,7 @@ def main():
     stock_status = extract_stock_status(soup)
     current_time = datetime.now()
     
-    print(f"n\Checked at: {current_time}")
+    print(f"\nChecked at: {current_time}")
     
     price_data ={
         "product": title,

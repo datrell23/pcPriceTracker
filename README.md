@@ -49,11 +49,23 @@ The script will:
 3. Save the data to `price_history.json` with a timestamp
 4. Display the results in the terminal
 
+### Automated Price Tracking
+
+Run the automated tracker to check prices at regular intervals:
+
+```bash
+python automated_tracker.py
+```
+
+By default, it checks every 6 hours. Modify `CHECK_INTERVAL_HOURS` in `automated_tracker.py` to customize.
+
+To stop: Press `Ctrl+C`
+
 
 
 ## Roadmap
 
-- [ ] Automate price checks (scheduled runs)
+- [x] Automate price checks (scheduled runs)
 - [ ] Support multiple products
 - [ ] Discord bot integration for price alerts
 - [ ] Add more retailers (Amazon, Best Buy, Micro Center)
@@ -82,5 +94,3 @@ MIT License - feel free to use this code for your own projects!
 Datrell Williams
 - GitHub: [Datrell23](https://github.com/datrell23)
 - Working toward: Backend Developer role at a big tech company
-
----
