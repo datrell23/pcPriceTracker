@@ -4,11 +4,11 @@ A python-based web scraper that tracks Pc part prices from Newegg and stores his
 
 ## Features
 
-- 🔍 Scrapes product information (title, price, stock status) from Newegg
-- 💾 Stores price history with timestamps in JSON format
-- 📊 Tracks price changes over time
-- ✅ Monitors stock availability
-- 🛡️ Error handling for network issues and corrupted data
+- Scrapes product information (title, price, stock status) from Newegg
+- Stores price history with timestamps in JSON format
+- Tracks price changes over time
+- Monitors stock availability
+- Error handling for network issues and corrupted data
 
 ## Tech Stack
 
