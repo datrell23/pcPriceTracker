@@ -6,6 +6,7 @@ import discord
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
+import json
 
 # Load environment variables from
 load_dotenv()
@@ -40,6 +41,37 @@ async def ping(ctx):
 async def hello(ctx):
     """Command to greet the user."""
     await ctx.send(f'Hello, {ctx.author.mention}!')
+    
+   
+def load_latest_price():
+    """Load the latest price from price_history"""
+    try:
+        with open('price_history.json', 'r') as f:
+            data = json.load(f)
+            if data:
+                return data[-1] # Last entry in the price history
+            return None
+    except FileNotFoundError:
+        return None
+    except json.JSONDecodeError:
+        return None
+    
+@bot.command(name='price')
+async def price(ctx):
+    """Display the latest price"""
+    latest = load_latest_price()
+    if not latest:
+        await ctx.send('No price history available. Run Scraper!')
+        return
+
+    embed = discord.Embed(title='Current Price', color=discord.Color.green())
+    embed.add_field(name='Product', value=latest['product'], inline=False)
+    embed.add_field(name='Price', value=f"${latest['price']}", inline=True)
+    embed.add_field(name='Stock Status', value=latest['stock_status'], inline= True)
+    embed.add_field(name='Last Checked', value=latest['timestamp'], inline=False)
+    embed.add_field(name='URL', value=f"[View on Newegg]({latest['url']})", inline=False)
+    
+    await ctx.send(embed=embed)
     
 #run the bot
 if __name__ == '__main__':
