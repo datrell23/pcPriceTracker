@@ -12,7 +12,11 @@ import os
 #Configuration
 PRODUCT_URL = "https://www.newegg.com/gigabyte-gv-n5090gaming-oc-32gd-geforce-rtx-5090-32gb-graphics-card-triple-fans/p/N82E16814932761"
 PRICE_HISTORY_FILE = "price_history.json"
-HEADERS = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.9',
+}
 
 #Functions
 def fetch_page(url):
@@ -23,9 +27,7 @@ def fetch_page(url):
     if response.status_code == 200:
         print("Webpage found")
         return response
-    else:
-        print(f"Failed. Status code: {response.status_code}")
-        exit()
+    raise RuntimeError(f"Failed to fetch page. Status code: {response.status_code}")
 
 def extract_title(soup):
     """Extracts product title from webpage."""

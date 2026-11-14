@@ -1,13 +1,15 @@
 """Discord Bot for Price Tracking
 Monitor product prices and send notifications to Discord when prices drop or products are back in stock.
 """
-
 import discord
 from discord.ext import commands, tasks
 import os
 from datetime import datetime
 from dotenv import load_dotenv
 import json
+import asyncio
+import random
+from main import main as run_scraper
 
 # Load environment variables from
 load_dotenv()
@@ -45,10 +47,16 @@ def build_price_embed(latest, title, color):
     return embed
 
 # Backgroudn Task
-@tasks.loop(minutes=1)
+@tasks.loop(hours =6)
 async def auto_post_price():
     """Post the latest price to the specified Discord channel."""
-    print(f"[{datetime.now()}] Runnind auot price update...")
+    print(f"[{datetime.now()}] Running auto price update...")
+    
+    try:
+        await asyncio.to_thread(run_scraper)
+    except Exception as e:
+        print(f"Scraper failed {e}")
+        return
     
     latest = load_latest_price()
     if not latest:
