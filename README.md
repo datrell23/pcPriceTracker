@@ -67,10 +67,23 @@ To stop: Press `Ctrl+C`
 
 - [x] Automate price checks (scheduled runs)
 - [ ] Support multiple products
-- [ ] Discord bot integration for price alerts
+- [x] Discord bot integration for price alerts
 - [ ] Add more retailers (Amazon, Best Buy, Micro Center)
 - [ ] Price drop notifications
-- [ ] Data visualization dashboard
+- [ ] Cloud deployment for 24/7 uptime.
+
+##
+- **Retailer bot protection:** Newegg and other large retailers may block automated requests (for example, returning HTTP 403). The scraper cannot guarantee access, and I chose not to work around these protections.
+- **Fragile selectors:** The scraper depends on the page's HTML structure (class names like `price-current`). If a retailer redesigns its page, the selectors will need updating.
+- **Single product, single site:** Currently tracks one Newegg product. Multi-product and multi-retailer support are on the roadmap.
+- **Local storage:** Price history is stored in a local JSON file, which is fine for one product but won't scale to many.
+- **Runs only while the bot is running:** The bot and its scheduled scrape need a machine that stays on. Cloud hosting is a planned improvement.
+
+### Failure handling
+
+If a scrape fails (blocked request, network error, timeout), the error is logged and the bot keeps running. It skips that cycle and tries again on the next scheduled run instead of crashing.
+
+
 
 ## What I Learned
 
